@@ -1,26 +1,35 @@
-function PizzaBlock() {
+import { useState } from 'react';
+
+function PizzaBlock(props) {
+  const [count, setCount] = useState(0);
+  const [type, setType] = useState(0);
+  const [size, setSize] = useState(0);
+
+  const pizzaType = ['Thin', 'Traditional'];
+
   return (
-    <div class="pizza-block">
-      <img
-        class="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
-      <h4 class="pizza-block__title">Cheeseburger pizza</h4>
-      <div class="pizza-block__selector">
+    <div className="pizza-block">
+      <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{props.title}</h4>
+      <div className="pizza-block__selector">
         <ul>
-          <li class="active">thin</li>
-          <li>traditional</li>
+          {pizzaType.map((pizzaType, id) => (
+            <li onClick={() => setType(id)} className={type == id ? 'active' : ''}>
+              {pizzaType}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li class="active">26 cm.</li>
-          <li>30 cm.</li>
-          <li>40 cm.</li>
+          {props.sizes.map((pizzaSize, id) => (
+            <li onClick={() => setSize(id)} className={size == id ? 'active' : ''}>
+              {pizzaSize} cm
+            </li>
+          ))}
         </ul>
       </div>
-      <div class="pizza-block__bottom">
-        <div class="pizza-block__price">8$</div>
-        <div class="button button--outline button--add">
+      <div className="pizza-block__bottom">
+        <div className="pizza-block__price">{props.price}$</div>
+        <button onClick={() => setCount(count + 1)} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -33,8 +42,8 @@ function PizzaBlock() {
             />
           </svg>
           <span>Add</span>
-          <i>2</i>
-        </div>
+          <i>{count}</i>
+        </button>
       </div>
     </div>
   );

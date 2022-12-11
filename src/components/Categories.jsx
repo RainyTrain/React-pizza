@@ -1,13 +1,16 @@
+import { useState } from 'react';
+
 function Categories() {
+  const [pizzaCategory, setPizzaCategory] = useState(0);
+  const categories = ['All', 'Meat', 'Vege', 'Grill', 'Spicy', 'Calzone'];
   return (
-    <div class="categories">
+    <div className="categories">
       <ul>
-        <li class="active">All</li>
-        <li>Meat</li>
-        <li>Vege</li>
-        <li>Grill</li>
-        <li>Spicy</li>
-        <li>Calzone</li>
+        {categories.map((category, id) => (
+          <li onClick={() => setPizzaCategory(id)} className={pizzaCategory == id ? 'active' : ''}>
+            {category}
+          </li>
+        ))}
       </ul>
     </div>
   );
