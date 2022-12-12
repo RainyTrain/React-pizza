@@ -4,7 +4,6 @@ function PizzaBlock(props) {
   const [count, setCount] = useState(0);
   const [type, setType] = useState(0);
   const [size, setSize] = useState(0);
-
   const pizzaType = ['Thin', 'Traditional'];
 
   return (

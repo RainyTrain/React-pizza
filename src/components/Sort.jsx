@@ -1,8 +1,20 @@
+import { useState } from 'react';
+
 function Sort() {
+  const [active, setActive] = useState(false);
+  const [sort, setSort] = useState('');
+  const sorting = ['popularity', 'price', 'alphabet'];
+
+  function chooseSort(id) {
+    setSort(id);
+    setActive(false);
+  }
+
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
+          onClick={() => setActive(!active)}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -14,15 +26,19 @@ function Sort() {
           />
         </svg>
         <b>Sort by:</b>
-        <span>popularity</span>
+        <span>{sorting[sort]}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">popularity</li>
-          <li>price</li>
-          <li>alphabet</li>
-        </ul>
-      </div>
+      {active && (
+        <div className="sort__popup">
+          <ul>
+            {sorting.map((sort, id) => (
+              <li onClick={() => chooseSort(id)} className={sort == id ? 'active' : ''}>
+                {sort}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

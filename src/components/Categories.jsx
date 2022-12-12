@@ -3,6 +3,7 @@ import { useState } from 'react';
 function Categories() {
   const [pizzaCategory, setPizzaCategory] = useState(0);
   const categories = ['All', 'Meat', 'Vege', 'Grill', 'Spicy', 'Calzone'];
+
   return (
     <div className="categories">
       <ul>
