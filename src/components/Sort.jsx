@@ -3,7 +3,6 @@ import { useState } from 'react';
 function Sort() {
   const [active, setActive] = useState(false);
   const [sort, setSort] = useState(0);
-  console.log(sort)
   const sorting = ['popularity', 'price', 'alphabet'];
 
   function chooseSort(id) {
@@ -26,7 +25,7 @@ function Sort() {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Sort by:</b> 
+        <b>Sort by:</b>
         <span>{sorting[sort]}</span>
       </div>
       {active && (
