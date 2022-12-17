@@ -1,3 +1,15 @@
 .main {
     margin: auto 0;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: 400;
+    font-size: 3em;
+}
+
+.sad {
+    height: 2em;
+    width: auto;
 }
