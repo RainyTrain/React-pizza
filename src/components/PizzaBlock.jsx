@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function PizzaBlock(props) {
   const [count, setCount] = useState(0);
-  const [type, setType] = useState(0);
+  const [type, setType] = useState('');
   const [size, setSize] = useState(0);
   const pizzaType = ['Thin', 'Traditional'];
 
@@ -12,14 +12,12 @@ function PizzaBlock(props) {
       <h4 className="pizza-block__title">{props.title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {pizzaType.map((pizzaType, id) => (
-            <li onClick={() => setType(id)} className={type == id ? 'active' : ''}>
-              {pizzaType}
-            </li>
+          {props.types.map((typeOfPizza, id) => (
+            <li onClick={() => setType(id)} className={type == id ? 'active' : ''}>{pizzaType[typeOfPizza]}</li>
           ))}
         </ul>
         <ul>
-          {props.sizes.map((pizzaSize, id) => (
+          {props.sizes.map((pizzaSize,id) => (
             <li onClick={() => setSize(id)} className={size == id ? 'active' : ''}>
               {pizzaSize} cm
             </li>
