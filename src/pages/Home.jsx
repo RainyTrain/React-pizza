@@ -37,19 +37,19 @@ function Home() {
   const sortedPizzaWithCategory = useMemo(() => {
     switch (pizzaCategory) {
       case 1:
-        return [...sortedPizza].filter(pizza => pizza.category == 1)
+        return [...sortedPizza].filter((pizza) => pizza.category == 1);
       case 2:
-        return [...sortedPizza].filter(pizza => pizza.category == 2)
+        return [...sortedPizza].filter((pizza) => pizza.category == 2);
       case 3:
-        return [...sortedPizza].filter(pizza => pizza.category == 3)
+        return [...sortedPizza].filter((pizza) => pizza.category == 3);
       case 4:
-        return [...sortedPizza].filter(pizza => pizza.category == 4)
+        return [...sortedPizza].filter((pizza) => pizza.category == 4);
       case 5:
-        return [...sortedPizza].filter(pizza => pizza.category == 5)
+        return [...sortedPizza].filter((pizza) => pizza.category == 5);
       default:
         return sortedPizza;
     }
-  }, [sortedPizza, pizzaCategory])
+  }, [sortedPizza, pizzaCategory]);
 
   return (
     <div className="container">
@@ -61,7 +61,7 @@ function Home() {
       <div className="content__items">
         {isLoading
           ? [...new Array(9)].map(() => <MyLoader />)
-          : sortedPizzaWithCategory .map((pizza) => <PizzaBlock {...pizza} />)}
+          : sortedPizzaWithCategory.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
     </div>
   );

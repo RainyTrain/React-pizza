@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-function Sort({sort, setSort}) {
+function Sort({ sort, setSort }) {
   const [active, setActive] = useState(false);
-  
+
   const sorting = ['popularity', 'price', 'alphabet'];
 
   function chooseSort(id) {

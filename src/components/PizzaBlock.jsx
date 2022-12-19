@@ -7,7 +7,7 @@ function PizzaBlock(props) {
   const pizzaType = ['Thin', 'Traditional'];
 
   return (
-    <div className='pizza-block-wrapper'>
+    <div className="pizza-block-wrapper">
       <div className="pizza-block">
         <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
         <h4 className="pizza-block__title">{props.title}</h4>
