@@ -17,9 +17,10 @@ function Home() {
         setIsLoading(false);
       })
       .catch((e) => console.log(e));
+      window.scrollTo(0,0)
   }, []);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -30,7 +31,7 @@ function Home() {
           ? [...new Array(9)].map(() => <MyLoader />)
           : list.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
-    </>
+    </div>
   );
 }
 
