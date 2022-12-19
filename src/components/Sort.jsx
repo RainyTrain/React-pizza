@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-function Sort() {
+function Sort({sort, setSort}) {
   const [active, setActive] = useState(false);
-  const [sort, setSort] = useState(0);
+  
   const sorting = ['popularity', 'price', 'alphabet'];
 
   function chooseSort(id) {
@@ -14,6 +14,7 @@ function Sort() {
     <div className="sort">
       <div className="sort__label">
         <svg
+          className={active ? 'active' : ''}
           onClick={() => setActive(!active)}
           width="10"
           height="6"

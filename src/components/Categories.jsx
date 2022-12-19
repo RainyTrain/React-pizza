@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-function Categories() {
-  const [pizzaCategory, setPizzaCategory] = useState(0);
+function Categories({pizzaCategory,setPizzaCategory}) {
+  
   const categories = ['All', 'Meat', 'Vege', 'Grill', 'Spicy', 'Calzone'];
 
   return (
