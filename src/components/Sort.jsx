@@ -3,7 +3,7 @@ import { useState } from 'react';
 function Sort({ sort, setSort }) {
   const [active, setActive] = useState(false);
 
-  const sorting = ['popularity', 'price', 'alphabet'];
+  const sorting = ['Popularity', 'Price', 'Name asc', 'Name desc'];
 
   function chooseSort(id) {
     setSort(id);

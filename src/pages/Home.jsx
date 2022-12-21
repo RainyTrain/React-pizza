@@ -29,8 +29,10 @@ function Home() {
       return [...list].sort((a, b) => a.rating < b.rating);
     } else if (sort == 1) {
       return [...list].sort((a, b) => a.price < b.price);
-    } else {
+    } else if (sort == 2) {
       return [...list].sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      return [...list].sort((a, b) => -a.title.localeCompare(b.title));
     }
   }, [sort, list]);
 
