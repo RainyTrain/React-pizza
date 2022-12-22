@@ -9,16 +9,16 @@ function Home() {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [sort, setSort] = useState('  ');
+  const [sort, setSort] = useState('rating');
 
   const [pizzaCategory, setPizzaCategory] = useState(0);
 
 
   useEffect(() => {
     setIsLoading(true)
-    const sortBy = sort.value
-    const category = pizzaCategory ? `${pizzaCategory}` : ''
-    fetch(`https://639b4244d514150197507472.mockapi.io/pizzas?sortBy=${sortBy}`)
+    const sortBy = sort ? `&sortBy=${sort}&order` : ''
+    const category = pizzaCategory ? `category=${pizzaCategory}` : ''
+    fetch(`https://639b4244d514150197507472.mockapi.io/pizzas?${category}${sortBy}`)
       .then((res) => res.json())
       .then((data) => {
         setList(data);
@@ -26,7 +26,7 @@ function Home() {
       })
       .catch((e) => console.log(e));
     window.scrollTo(0, 0);
-    console.log(pizzaCategory)
+    console.log(sort)
   }, [pizzaCategory, sort]);
 
   // const sortedPizza = useMemo(() => {
@@ -67,7 +67,7 @@ function Home() {
       <h2 className="content__title">All</h2>
       <div className="content__items">
         {isLoading
-          ? [...new Array(9)].map(() => <MyLoader />)
+          ? [...new Array(10)].map(() => <MyLoader />)
           : list.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
     </div>
