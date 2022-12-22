@@ -9,12 +9,16 @@ function Home() {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [sort, setSort] = useState(0);
+  const [sort, setSort] = useState('  ');
 
   const [pizzaCategory, setPizzaCategory] = useState(0);
 
+
   useEffect(() => {
-    fetch('https://639b4244d514150197507472.mockapi.io/pizzas')
+    setIsLoading(true)
+    const sortBy = sort.value
+    const category = pizzaCategory ? `${pizzaCategory}` : ''
+    fetch(`https://639b4244d514150197507472.mockapi.io/pizzas?sortBy=${sortBy}`)
       .then((res) => res.json())
       .then((data) => {
         setList(data);
@@ -22,36 +26,37 @@ function Home() {
       })
       .catch((e) => console.log(e));
     window.scrollTo(0, 0);
-  }, []);
+    console.log(pizzaCategory)
+  }, [pizzaCategory, sort]);
 
-  const sortedPizza = useMemo(() => {
-    if (sort == 0) {
-      return [...list].sort((a, b) => a.rating < b.rating);
-    } else if (sort == 1) {
-      return [...list].sort((a, b) => a.price < b.price);
-    } else if (sort == 2) {
-      return [...list].sort((a, b) => a.title.localeCompare(b.title));
-    } else {
-      return [...list].sort((a, b) => -a.title.localeCompare(b.title));
-    }
-  }, [sort, list]);
+  // const sortedPizza = useMemo(() => {
+  //   if (sort == 0) {
+  //     return [...list].sort((a, b) => a.rating < b.rating);
+  //   } else if (sort == 1) {
+  //     return [...list].sort((a, b) => a.price < b.price);
+  //   } else if (sort == 2) {
+  //     return [...list].sort((a, b) => a.title.localeCompare(b.title));
+  //   } else {
+  //     return [...list].sort((a, b) => -a.title.localeCompare(b.title));
+  //   }
+  // }, [sort, list]);
 
-  const sortedPizzaWithCategory = useMemo(() => {
-    switch (pizzaCategory) {
-      case 1:
-        return [...sortedPizza].filter((pizza) => pizza.category == 1);
-      case 2:
-        return [...sortedPizza].filter((pizza) => pizza.category == 2);
-      case 3:
-        return [...sortedPizza].filter((pizza) => pizza.category == 3);
-      case 4:
-        return [...sortedPizza].filter((pizza) => pizza.category == 4);
-      case 5:
-        return [...sortedPizza].filter((pizza) => pizza.category == 5);
-      default:
-        return sortedPizza;
-    }
-  }, [sortedPizza, pizzaCategory]);
+  // const sortedPizzaWithCategory = useMemo(() => {
+  //   switch (pizzaCategory) {
+  //     case 1:
+  //       return [...sortedPizza].filter((pizza) => pizza.category == 1);
+  //     case 2:
+  //       return [...sortedPizza].filter((pizza) => pizza.category == 2);
+  //     case 3:
+  //       return [...sortedPizza].filter((pizza) => pizza.category == 3);
+  //     case 4:
+  //       return [...sortedPizza].filter((pizza) => pizza.category == 4);
+  //     case 5:
+  //       return [...sortedPizza].filter((pizza) => pizza.category == 5);
+  //     default:
+  //       return sortedPizza;
+  //   }
+  // }, [sortedPizza, pizzaCategory]);
 
   return (
     <div className="container">
@@ -63,7 +68,7 @@ function Home() {
       <div className="content__items">
         {isLoading
           ? [...new Array(9)].map(() => <MyLoader />)
-          : sortedPizzaWithCategory.map((pizza) => <PizzaBlock {...pizza} />)}
+          : list.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
     </div>
   );

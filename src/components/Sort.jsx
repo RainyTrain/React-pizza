@@ -3,10 +3,14 @@ import { useState } from 'react';
 function Sort({ sort, setSort }) {
   const [active, setActive] = useState(false);
 
-  const sorting = ['Popularity', 'Price', 'Name asc', 'Name desc'];
+  const sorting = [
+    { name: 'Popularity', value: 'rating' },
+    { name: 'Price', value: 'price' },
+    { name: 'Title', value: 'title' },
+  ];
 
-  function chooseSort(id) {
-    setSort(id);
+  function chooseSort(value) {
+    setSort(value);
     setActive(false);
   }
 
@@ -27,14 +31,14 @@ function Sort({ sort, setSort }) {
           />
         </svg>
         <b>Sort by:</b>
-        <span>{sorting[sort]}</span>
+        <span>{sort}</span>
       </div>
       {active && (
         <div className="sort__popup">
           <ul>
             {sorting.map((sorting, id) => (
-              <li key={id} onClick={() => chooseSort(id)} className={sort == id ? 'active' : ''}>
-                {sorting}
+              <li key={id} onClick={() => chooseSort(sorting.value)} className={sort == sorting.value ? 'active' : ''}>
+                {sorting.name}
               </li>
             ))}
           </ul>
