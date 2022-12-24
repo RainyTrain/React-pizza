@@ -4,6 +4,9 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import { useEffect, useState } from 'react';
 import MyLoader from '../components/Skeleton';
+import 'axios';
+import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 function Home() {
   const [list, setList] = useState([]);
@@ -13,20 +16,19 @@ function Home() {
 
   const [pizzaCategory, setPizzaCategory] = useState(0);
 
-
   useEffect(() => {
-    setIsLoading(true)
-    const sortBy = sort ? `&sortBy=${sort}&order` : ''
-    const category = pizzaCategory ? `category=${pizzaCategory}` : ''
-    fetch(`https://639b4244d514150197507472.mockapi.io/pizzas?${category}${sortBy}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setList(data);
+    setIsLoading(true);
+    const sortBy = sort ? `&sortBy=${sort}&order` : '';
+    const category = pizzaCategory ? `category=${pizzaCategory}` : '';
+    axios
+      .get(`https://639b4244d514150197507472.mockapi.io/pizzas?${category}${sortBy}`)
+      .then((response) => {
+        setList(response.data);
         setIsLoading(false);
+        console.log(response.data)
       })
-      .catch((e) => console.log(e));
+    .catch((e) => console.log(e));
     window.scrollTo(0, 0);
-    console.log(sort)
   }, [pizzaCategory, sort]);
 
   // const sortedPizza = useMemo(() => {
@@ -70,6 +72,16 @@ function Home() {
           ? [...new Array(10)].map(() => <MyLoader />)
           : list.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        // onPageChange={handlePageClick}
+        onPageChange={e => console.log(e)}
+        pageRangeDisplayed={5}
+        pageCount={3}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+      />
     </div>
   );
 }
