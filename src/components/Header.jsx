@@ -1,7 +1,9 @@
 import logo from '../assets/pizza-logo.svg';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-function Header() {
+function Header({ searchQuery, setSearcgQuery }) {
+  useEffect(() => console.log(searchQuery), [searchQuery]);
   return (
     <div className="header">
       <div className="container">
@@ -14,6 +16,9 @@ function Header() {
             </div>
           </div>
         </Link>
+        <div className="header__input">
+          <input value={searchQuery} onChange={(e) => setSearcgQuery(e.target.value)}></input>
+        </div>
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>10$</span>

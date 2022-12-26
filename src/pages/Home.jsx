@@ -8,13 +8,15 @@ import 'axios';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
-function Home() {
+function Home({ searchQuery }) {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [sort, setSort] = useState('rating');
 
   const [pizzaCategory, setPizzaCategory] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,40 +27,24 @@ function Home() {
       .then((response) => {
         setList(response.data);
         setIsLoading(false);
-        console.log(response.data)
       })
-    .catch((e) => console.log(e));
+      .catch((e) => console.log(e));
     window.scrollTo(0, 0);
   }, [pizzaCategory, sort]);
 
-  // const sortedPizza = useMemo(() => {
-  //   if (sort == 0) {
-  //     return [...list].sort((a, b) => a.rating < b.rating);
-  //   } else if (sort == 1) {
-  //     return [...list].sort((a, b) => a.price < b.price);
-  //   } else if (sort == 2) {
-  //     return [...list].sort((a, b) => a.title.localeCompare(b.title));
-  //   } else {
-  //     return [...list].sort((a, b) => -a.title.localeCompare(b.title));
-  //   }
-  // }, [sort, list]);
+  useEffect(() => {
+    console.log(searchQuery, sort, pizzaCategory);
+  });
 
-  // const sortedPizzaWithCategory = useMemo(() => {
-  //   switch (pizzaCategory) {
-  //     case 1:
-  //       return [...sortedPizza].filter((pizza) => pizza.category == 1);
-  //     case 2:
-  //       return [...sortedPizza].filter((pizza) => pizza.category == 2);
-  //     case 3:
-  //       return [...sortedPizza].filter((pizza) => pizza.category == 3);
-  //     case 4:
-  //       return [...sortedPizza].filter((pizza) => pizza.category == 4);
-  //     case 5:
-  //       return [...sortedPizza].filter((pizza) => pizza.category == 5);
-  //     default:
-  //       return sortedPizza;
-  //   }
-  // }, [sortedPizza, pizzaCategory]);
+  const pizzas = useMemo(() => {
+    return searchQuery != ''
+      ? list.filter((pizza) => {
+          return pizza.title.toLowerCase().includes(searchQuery);
+        })
+      : list;
+  });
+
+  console.log(pizzas, list);
 
   return (
     <div className="container">
@@ -70,13 +56,13 @@ function Home() {
       <div className="content__items">
         {isLoading
           ? [...new Array(10)].map(() => <MyLoader />)
-          : list.map((pizza) => <PizzaBlock {...pizza} />)}
+          : pizzas.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
-        // onPageChange={handlePageClick}
-        onPageChange={e => console.log(e)}
+        //onPageChange={handlePageClick}
+        onPageChange={(e) => console.log(e)}
         pageRangeDisplayed={5}
         pageCount={3}
         previousLabel="< previous"
