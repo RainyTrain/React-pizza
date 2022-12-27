@@ -15,21 +15,22 @@ function Home({ searchQuery }) {
 
   const [pizzaCategory, setPizzaCategory] = useState(0);
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
     const sortBy = sort ? `&sortBy=${sort}&order` : '';
     const category = pizzaCategory ? `category=${pizzaCategory}` : '';
     axios
-      .get(`https://639b4244d514150197507472.mockapi.io/pizzas?${category}${sortBy}`)
+      .get(
+        `https://639b4244d514150197507472.mockapi.io/pizzas?${category}${sortBy}&page=${currentPage}&limit=4`,
+      )
       .then((response) => {
         setList(response.data);
         setIsLoading(false);
       })
       .catch((e) => console.log(e));
-    window.scrollTo(0, 0);
-  }, [pizzaCategory, sort]);
+  }, [pizzaCategory, sort, currentPage]);
 
   const pizzas = useMemo(() => {
     return searchQuery != ''
@@ -38,11 +39,16 @@ function Home({ searchQuery }) {
         })
       : list;
   });
-
+  console.log('home page -',currentPage)
   return (
     <div className="container">
       <div className="content__top">
-        <Categories pizzaCategory={pizzaCategory} setPizzaCategory={setPizzaCategory} />
+        <Categories
+          setCurrentPage={setCurrentPage}
+          pizzaCategory={pizzaCategory}
+          setPizzaCategory={setPizzaCategory}
+          currentPage={currentPage}
+        />
         <Sort sort={sort} setSort={setSort} />
       </div>
       <h2 className="content__title">All</h2>
@@ -51,16 +57,18 @@ function Home({ searchQuery }) {
           ? [...new Array(10)].map(() => <MyLoader />)
           : pizzas.map((pizza) => <PizzaBlock {...pizza} />)}
       </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        // onPageChange={handlePageClick}
-        onPageChange={(e) => console.log(e)}
-        pageRangeDisplayed={5}
-        pageCount={3}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      />
+      <div className="pagination">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          // onPageChange={handlePageClick}
+          onPageChange={(e) => setCurrentPage(e.selected + 1)}
+          pageRangeDisplayed={4}
+          pageCount={3}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+        />
+      </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 11px;
     grid-row-gap: 20px;
 
@@ -66,7 +66,7 @@ body {
 
   &--cart {
     max-width: 820px;
-    
+
     margin: 90px auto;
     .content__title {
       margin: 0;
@@ -132,8 +132,6 @@ body {
       }
     }
   }
-
-  
 
   &__item {
     display: flex;
@@ -340,6 +338,30 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+    }
+  }
+}
+
+.pagination {
+  cursor: pointer;
+  ul {
+    display: flex;
+  }
+  li {
+    a {
+      margin: 0 5px 0 0;
+      border: 1px solid #fe5f1e;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fe5f1e;
+      &:hover {
+        background-color: #fe5f1e;
+        color: white;
+      }
     }
   }
 }

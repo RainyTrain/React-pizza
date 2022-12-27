@@ -28,6 +28,7 @@ function Header({ searchQuery, setSearchQuery }) {
         </Link>
         <div className="header__input">
           <input
+            placeholder='Find pizza'
             ref={ref}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}></input>
