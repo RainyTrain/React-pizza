@@ -5,7 +5,7 @@ function Categories({ pizzaCategory, setPizzaCategory }) {
     <div className="categories">
       <ul>
         {categories.map((category, id) => (
-          <li onClick={() => setPizzaCategory(id)} className={pizzaCategory == id ? 'active' : ''}>
+          <li key={id} onClick={() => setPizzaCategory(id)} className={pizzaCategory == id ? 'active' : ''}>
             {category}
           </li>
         ))}

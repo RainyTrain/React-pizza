@@ -4,7 +4,6 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import { useEffect, useState } from 'react';
 import MyLoader from '../components/Skeleton';
-import 'axios';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
@@ -32,19 +31,13 @@ function Home({ searchQuery }) {
     window.scrollTo(0, 0);
   }, [pizzaCategory, sort]);
 
-  useEffect(() => {
-    console.log(searchQuery, sort, pizzaCategory);
-  });
-
   const pizzas = useMemo(() => {
     return searchQuery != ''
       ? list.filter((pizza) => {
-          return pizza.title.toLowerCase().includes(searchQuery);
+          return pizza.title.toLowerCase().includes(searchQuery.toLowerCase());
         })
       : list;
   });
-
-  console.log(pizzas, list);
 
   return (
     <div className="container">
@@ -61,7 +54,7 @@ function Home({ searchQuery }) {
       <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
-        //onPageChange={handlePageClick}
+        // onPageChange={handlePageClick}
         onPageChange={(e) => console.log(e)}
         pageRangeDisplayed={5}
         pageCount={3}

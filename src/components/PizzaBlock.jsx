@@ -14,14 +14,14 @@ function PizzaBlock(props) {
         <div className="pizza-block__selector">
           <ul>
             {props.types.map((typeOfPizza, id) => (
-              <li onClick={() => setType(id)} className={type == id ? 'active' : ''}>
+              <li key={id} onClick={() => setType(id)} className={type == id ? 'active' : ''}>
                 {pizzaType[typeOfPizza]}
               </li>
             ))}
           </ul>
           <ul>
             {props.sizes.map((pizzaSize, id) => (
-              <li onClick={() => setSize(id)} className={size == id ? 'active' : ''}>
+              <li key={id} onClick={() => setSize(id)} className={size == id ? 'active' : ''}>
                 {pizzaSize} cm
               </li>
             ))}

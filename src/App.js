@@ -7,12 +7,12 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useState } from 'react';
 
 function App() {
-  const [searchQuery, setSearcgQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   return (
     <BrowserRouter>
       <div className="App">
         <div className="wrapper">
-          <Header searchQuery={searchQuery} setSearcgQuery={setSearcgQuery} />
+          <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className="content">
             <Routes>
               <Route path="/" element={<Home searchQuery={searchQuery} />} />
