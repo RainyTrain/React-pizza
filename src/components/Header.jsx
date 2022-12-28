@@ -1,9 +1,11 @@
 import logo from '../assets/pizza-logo.svg';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import { myContext } from './Context';
 
-function Header({ searchQuery, setSearchQuery }) {
+function Header() {
+  const { searchQuery, setSearchQuery } = useContext(myContext);
   const [isClosed, setIsClosed] = useState(true);
   const ref = useRef();
 
@@ -28,7 +30,7 @@ function Header({ searchQuery, setSearchQuery }) {
         </Link>
         <div className="header__input">
           <input
-            placeholder='Find pizza'
+            placeholder="Find pizza"
             ref={ref}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}></input>

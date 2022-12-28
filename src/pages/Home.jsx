@@ -2,12 +2,14 @@ import React, { useMemo } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import MyLoader from '../components/Skeleton';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
+import { myContext } from '../components/Context';
 
-function Home({ searchQuery }) {
+function Home() {
+  const { searchQuery } = useContext(myContext);
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,16 +41,12 @@ function Home({ searchQuery }) {
         })
       : list;
   });
-  console.log('home page -',currentPage)
+
+  console.log('home page -', currentPage);
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          setCurrentPage={setCurrentPage}
-          pizzaCategory={pizzaCategory}
-          setPizzaCategory={setPizzaCategory}
-          currentPage={currentPage}
-        />
+        <Categories pizzaCategory={pizzaCategory} setPizzaCategory={setPizzaCategory} />
         <Sort sort={sort} setSort={setSort} />
       </div>
       <h2 className="content__title">All</h2>
