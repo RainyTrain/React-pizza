@@ -7,17 +7,27 @@ import MyLoader from '../components/Skeleton';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryId } from '../Redux/Slices/FilterSlice';
 
 function Home() {
+  const pizzaCategory = useSelector(state => state.filterReducer.categoryId)
+  const dispatch = useDispatch()
+  console.log('selector',pizzaCategory)
+
   const { searchQuery } = useContext(myContext);
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [sort, setSort] = useState('rating');
 
-  const [pizzaCategory, setPizzaCategory] = useState(0);
+  //const [pizzaCategory, setPizzaCategory] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const setPizzaCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,7 +69,6 @@ function Home() {
         <ReactPaginate
           breakLabel="..."
           nextLabel=">"
-          // onPageChange={handlePageClick}
           onPageChange={(e) => setCurrentPage(e.selected + 1)}
           pageRangeDisplayed={4}
           pageCount={3}
