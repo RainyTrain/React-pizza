@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSort } from '../Redux/Slices/FilterSlice';
 
-function Sort({ sort, setSort }) {
+function Sort() {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filterReducer.sortType);
+
   const [active, setActive] = useState(false);
 
   const sorting = [
@@ -9,10 +14,10 @@ function Sort({ sort, setSort }) {
     { name: 'Title', value: 'title' },
   ];
 
-  function chooseSort(value) {
-    setSort(value);
+  const setSortingValue = (value) => {
+    dispatch(setSort(value));
     setActive(false);
-  }
+  };
 
   return (
     <div className="sort">
@@ -37,7 +42,10 @@ function Sort({ sort, setSort }) {
         <div className="sort__popup">
           <ul>
             {sorting.map((sorting, id) => (
-              <li key={id} onClick={() => chooseSort(sorting.value)} className={sort == sorting.value ? 'active' : ''}>
+              <li
+                key={id}
+                onClick={() => setSortingValue(sorting.value)}
+                className={sort == sorting.value ? 'active' : ''}>
                 {sorting.name}
               </li>
             ))}

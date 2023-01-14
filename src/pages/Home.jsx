@@ -8,26 +8,22 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from '../Redux/Slices/FilterSlice';
+import { setCategoryId, setCurrentPage } from '../Redux/Slices/FilterSlice';
 
 function Home() {
-  const pizzaCategory = useSelector(state => state.filterReducer.categoryId)
-  const dispatch = useDispatch()
-  console.log('selector',pizzaCategory)
+  const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
+  const sort = useSelector((state) => state.filterReducer.sortType);
+  const currentPage = useSelector((state) => state.filterReducer.currentPage);
+
+  const dispatch = useDispatch();
 
   const { searchQuery } = useContext(myContext);
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [sort, setSort] = useState('rating');
-
-  //const [pizzaCategory, setPizzaCategory] = useState(0);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
   const setPizzaCategory = (id) => {
-    dispatch(setCategoryId(id))
-  }
+    dispatch(setCategoryId(id));
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -35,7 +31,7 @@ function Home() {
     const category = pizzaCategory ? `category=${pizzaCategory}` : '';
     axios
       .get(
-        `https://639b4244d514150197507472.mockapi.io/pizzas?${category}${sortBy}&page=${currentPage}&limit=4`,
+        `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&limit=4`,
       )
       .then((response) => {
         setList(response.data);
@@ -52,12 +48,12 @@ function Home() {
       : list;
   });
 
-  console.log('home page -', currentPage);
+  //console.log('home page -', currentPage);
   return (
     <div className="container">
       <div className="content__top">
         <Categories pizzaCategory={pizzaCategory} setPizzaCategory={setPizzaCategory} />
-        <Sort sort={sort} setSort={setSort} />
+        <Sort />
       </div>
       <h2 className="content__title">All</h2>
       <div className="content__items">
@@ -69,7 +65,7 @@ function Home() {
         <ReactPaginate
           breakLabel="..."
           nextLabel=">"
-          onPageChange={(e) => setCurrentPage(e.selected + 1)}
+          onPageChange={(e) => dispatch(setCurrentPage(e.selected + 1))}
           pageRangeDisplayed={4}
           pageCount={3}
           previousLabel="<"

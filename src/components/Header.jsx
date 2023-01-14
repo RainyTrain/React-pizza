@@ -9,8 +9,6 @@ function Header() {
   const [isClosed, setIsClosed] = useState(true);
   const ref = useRef();
 
-  useEffect(() => console.log(searchQuery, isClosed), [searchQuery]);
-
   useEffect(() => {
     setSearchQuery('');
     ref.current.focus();
