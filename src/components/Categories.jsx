@@ -1,6 +1,5 @@
 function Categories({ pizzaCategory, setPizzaCategory }) {
   const categories = ['All', 'Meat', 'Vege', 'Grill', 'Spicy', 'Calzone'];
-
   return (
     <div className="categories">
       <ul>
