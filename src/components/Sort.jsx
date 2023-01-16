@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../Redux/Slices/FilterSlice';
+import { setSort, sorting} from '../Redux/Slices/FilterSlice';
 
 function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filterReducer.sortType);
 
   const [active, setActive] = useState(false);
-
-  const sorting = [
-    { name: 'Popularity', value: 'rating' },
-    { name: 'Price', value: 'price' },
-    { name: 'Title', value: 'title' },
-  ];
 
   const setSortingValue = (value) => {
     dispatch(setSort(value));
