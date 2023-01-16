@@ -59,8 +59,7 @@ function Home() {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      const sortValue = sorting.find(item => item.value == params.sortProperty)
-      console.log(params)
+      const sortValue = sorting.find((item) => item.value == params.sortProperty);
     }
   }, []);
 
