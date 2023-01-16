@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
-  const sort = useSelector((state) => state.filterReducer.sortType);
+  const sortType = useSelector((state) => state.filterReducer.sortType);
   const currentPage = useSelector((state) => state.filterReducer.currentPage);
 
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function Home() {
 
   useEffect(() => {
     setIsLoading(true);
-    const sortBy = sort ? `&sortBy=${sort}&order` : '';
+    const sortBy = sortType ? `&sortBy=${sortType}&order` : '';
     const category = pizzaCategory ? `category=${pizzaCategory}` : '';
     axios
       .get(
@@ -42,24 +42,26 @@ function Home() {
         setIsLoading(false);
       })
       .catch((e) => console.log(e));
-  }, [pizzaCategory, sort, currentPage]);
+  }, [pizzaCategory, sortType, currentPage]);
 
   useEffect(() => {
     const queryString = qs.stringify(
       {
-        sortProperty: sort,
+        sortType,
         pizzaCategory,
         currentPage,
       },
       { addQueryPrefix: true },
     );
     navigate(`/${queryString}`);
-  }, [pizzaCategory, sort, currentPage]);
+  }, [pizzaCategory, sortType, currentPage]);
 
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      const sortValue = sorting.find((item) => item.value == params.sortProperty);
+      const sort = sorting.find((item) => item.value == params.sortType);
+      const sortValue = sort.value;
+      dispatch(setFilters({ ...params, sortValue }));
     }
   }, []);
 
@@ -71,7 +73,6 @@ function Home() {
       : list;
   });
 
-  //console.log('home page -', currentPage);
   return (
     <div className="container">
       <div className="content__top">
