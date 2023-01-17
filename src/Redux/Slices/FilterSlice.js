@@ -26,8 +26,8 @@ export const filterSlice = createSlice({
       state.currentPage = action.payload;
     },
     setFilters(state, action) {
-      state.sortType = action.payload.sortValue;
-      state.categoryTypee = Number(action.payload.categoryType);
+      state.sortType = action.payload.sortType;
+      state.categoryId = Number(action.payload.pizzaCategory);
       state.currentPage = Number(action.payload.currentPage);
     },
   },

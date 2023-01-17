@@ -10,7 +10,7 @@ import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage, setFilters, sorting } from '../Redux/Slices/FilterSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function Home() {
   const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
@@ -24,6 +24,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams({});
 
   const setPizzaCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -45,23 +46,27 @@ function Home() {
   }, [pizzaCategory, sortType, currentPage]);
 
   useEffect(() => {
-    const queryString = qs.stringify(
-      {
-        sortType,
-        pizzaCategory,
-        currentPage,
-      },
-      { addQueryPrefix: true },
-    );
-    navigate(`/${queryString}`);
+    setSearchParams({
+      sortType,
+      pizzaCategory,
+      currentPage,
+    });
   }, [pizzaCategory, sortType, currentPage]);
+
 
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
+      console.log('params', params);
       const sort = sorting.find((item) => item.value == params.sortType);
-      const sortValue = sort.value;
-      dispatch(setFilters({ ...params, sortValue }));
+
+      dispatch(
+        setFilters({
+          sortType: sort.value,
+          pizzaCategory: params.pizzaCategory,
+          currentPage: params.currentPage,
+        }),
+      );
     }
   }, []);
 
@@ -71,8 +76,8 @@ function Home() {
           return pizza.title.toLowerCase().includes(searchQuery.toLowerCase());
         })
       : list;
-  });
-
+  },[list,searchQuery]);
+  
   return (
     <div className="container">
       <div className="content__top">
