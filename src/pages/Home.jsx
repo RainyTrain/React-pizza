@@ -10,7 +10,7 @@ import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage, setFilters, sorting } from '../Redux/Slices/FilterSlice';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 function Home() {
   const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
@@ -53,7 +53,6 @@ function Home() {
     });
   }, [pizzaCategory, sortType, currentPage]);
 
-
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -76,8 +75,8 @@ function Home() {
           return pizza.title.toLowerCase().includes(searchQuery.toLowerCase());
         })
       : list;
-  },[list,searchQuery]);
-  
+  }, [list, searchQuery]);
+
   return (
     <div className="container">
       <div className="content__top">
