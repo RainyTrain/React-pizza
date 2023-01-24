@@ -10,7 +10,7 @@ import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage, setFilters, sorting } from '../Redux/Slices/FilterSlice';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 function Home() {
   const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
