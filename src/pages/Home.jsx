@@ -87,7 +87,7 @@ function Home() {
       <div className="content__items">
         {isLoading
           ? [...new Array(10)].map(() => <MyLoader />)
-          : pizzas.map((pizza) => <PizzaBlock {...pizza} />)}
+          : pizzas.map((pizza, id) => <PizzaBlock key={id} {...pizza} />)}
       </div>
       <div className="pagination">
         <ReactPaginate

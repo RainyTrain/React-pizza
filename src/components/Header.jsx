@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { myContext } from './Context';
+import { useSelector } from 'react-redux';
 
 function Header() {
+  const totalPrice = useSelector((state) => state.cartReducer.totalPrice);
   const { searchQuery, setSearchQuery } = useContext(myContext);
   const [isClosed, setIsClosed] = useState(true);
   const ref = useRef();
@@ -42,7 +44,7 @@ function Header() {
         </div>
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>10$</span>
+            <span>{totalPrice}$</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
