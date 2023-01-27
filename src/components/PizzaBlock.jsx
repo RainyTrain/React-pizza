@@ -17,6 +17,9 @@ function PizzaBlock(props) {
       title: props.title,
       price: props.price,
       id: props.id,
+      imageUrl: props.imageUrl,
+      type: type,
+      size: size
     };
     console.log(item)
     dispatch(setItem(item));
