@@ -17,7 +17,6 @@ function Sort() {
     const handleClick = (e) => {
       if (!e.composedPath().includes(sortRef.current)) {
         setActive(false);
-        console.log('click ');
       }
     };
     document.body.addEventListener('click', handleClick);

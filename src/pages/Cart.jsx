@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function Cart() {
-  const pizzas = useSelector((state) => state.cartReducer.items);
+  const pizzaCart = useSelector((state) => state.cartReducer.items);
+  console.log('azazazaz',pizzaCart)
 
   return (
     <div class="container container--cart">
@@ -81,7 +82,10 @@ function Cart() {
           </div>
         </div>
         <div class="cart__items">
-          <div class="cart__item">
+          {pizzaCart ? pizzaCart.map((item) => {
+            <li>privet</li>
+          }) : <></>}
+          {/* <div class="cart__item">
             <div class="cart__item-img">
               <img
                 class="pizza-block__image"
@@ -368,7 +372,7 @@ function Cart() {
                 </svg>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div class="cart__bottom">
           <div class="cart__bottom-details">

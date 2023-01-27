@@ -6,8 +6,9 @@ function PizzaBlock(props) {
   const [count, setCount] = useState(0);
   const [type, setType] = useState('');
   const [size, setSize] = useState(0);
+
   const dispatch = useDispatch();
-  const pizzacart = useSelector(state => state.cartReducer)
+  const pizzacart = useSelector((state) => state.cartReducer.items);
   const pizzaType = ['Thin', 'Traditional'];
 
   const addPizza = () => {
@@ -17,8 +18,8 @@ function PizzaBlock(props) {
       price: props.price,
       id: props.id,
     };
+    console.log(item)
     dispatch(setItem(item));
-    console.log(pizzacart)
   };
   return (
     <div className="pizza-block-wrapper">
@@ -43,9 +44,7 @@ function PizzaBlock(props) {
         </div>
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">{props.price}$</div>
-          <button
-            onClick={addPizza}
-            className="button button--outline button--add">
+          <button onClick={addPizza} className="button button--outline button--add">
             <svg
               width="12"
               height="12"
