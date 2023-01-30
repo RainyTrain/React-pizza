@@ -8,7 +8,6 @@ function PizzaBlock(props) {
   const [size, setSize] = useState(0);
 
   const dispatch = useDispatch();
-  const pizzacart = useSelector((state) => state.cartReducer.items);
   const pizzaType = ['Thin', 'Traditional'];
 
   const addPizza = () => {
@@ -21,7 +20,6 @@ function PizzaBlock(props) {
       type: type,
       size: size
     };
-    console.log(item)
     dispatch(setItem(item));
   };
   return (
