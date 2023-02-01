@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 
 function Cart() {
-  const pizzaCart = useSelector((state) => state.cartReducer.items);
+  const pizzaCart = useSelector((state) => state.cartReducer);
+
+  const handleClick = () => {
+    console.log(pizzaCart)
+  }
+
 
   return (
     <div class="container container--cart">
@@ -81,19 +86,16 @@ function Cart() {
           </div>
         </div>
         <div class="cart__items">
-          {pizzaCart ? (
-            pizzaCart.map((item) => {
-              <CartItem key={item.id} {...item} />;
-            })
-          ) : (
-            <></>
-          )}
+          {pizzaCart.items.map((item) => {
+            return <CartItem {...item} />
+          })}
+          
         </div>
         <div class="cart__bottom">
           <div class="cart__bottom-details">
             <span>
               {' '}
-              Pizzas amount: <b>3</b>{' '}
+              Pizzas amount: <b>{pizzaCart.count}</b>{' '}
             </span>
             <span>
               {' '}
@@ -119,9 +121,9 @@ function Cart() {
 
               <span>Back</span>
             </Link>
-            <div class="button pay-btn">
+            <button onClick={handleClick} class="button pay-btn">
               <span>Pay now</span>
-            </div>
+            </button>
           </div>
         </div>
       </div>

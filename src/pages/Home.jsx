@@ -53,20 +53,20 @@ function Home() {
     });
   }, [pizzaCategory, sortType, currentPage]);
 
-  useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = sorting.find((item) => item.value == params.sortType);
+  // useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.substring(1));
+  //     const sort = sorting.find((item) => item.value == params.sortType);
 
-      dispatch(
-        setFilters({
-          sortType: sort.value,
-          pizzaCategory: params.pizzaCategory,
-          currentPage: params.currentPage,
-        }),
-      );
-    }
-  }, []);
+  //     dispatch(
+  //       setFilters({
+  //         sortType: sort.value,
+  //         pizzaCategory: params.pizzaCategory,
+  //         currentPage: params.currentPage,
+  //       }),
+  //     );
+  //   }
+  // }, []);
 
   const pizzas = useMemo(() => {
     return searchQuery != ''

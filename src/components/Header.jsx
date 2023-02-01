@@ -74,7 +74,7 @@ function Header() {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>3</span>
+            <span>total</span>
           </Link>
         </div>
       </div>
