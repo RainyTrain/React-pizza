@@ -4,7 +4,7 @@ import { setItem } from '../Redux/Slices/CartSlice';
 
 function PizzaBlock(props) {
   const [count, setCount] = useState(0);
-  const [type, setType] = useState('');
+  const [type, setType] = useState(0);
   const [size, setSize] = useState(0);
 
   const dispatch = useDispatch();
@@ -17,9 +17,10 @@ function PizzaBlock(props) {
       price: props.price,
       id: props.id,
       imageUrl: props.imageUrl,
-      type: type,
-      size: size
+      type: pizzaType[type],
+      size: props.sizes[size]
     };
+    console.log('My item',item)
     dispatch(setItem(item));
   };
   return (
