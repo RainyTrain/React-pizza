@@ -1,4 +1,14 @@
+import { useDispatch } from "react-redux";
+import { removeItem } from "../Redux/Slices/CartSlice";
+
 const CartItem = ({ title, price, id, imageUrl, type, size }) => {
+
+  const dispatch = useDispatch()
+
+  const removePizza = (id) => {
+    dispatch(removeItem(id))
+  }
+
   return (
     <div class="cart__item">
       <div class="cart__item-img">
@@ -51,7 +61,7 @@ const CartItem = ({ title, price, id, imageUrl, type, size }) => {
         <b>{price} $</b>
       </div>
       <div class="cart__item-remove">
-        <div class="button button--outline button--circle">
+        <div onClick={() => removePizza(id)} class="button button--outline button--circle">
           <svg
             width="10"
             height="10"

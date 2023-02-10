@@ -18,9 +18,10 @@ function PizzaBlock(props) {
       id: props.id,
       imageUrl: props.imageUrl,
       type: pizzaType[type],
-      size: props.sizes[size]
+      size: props.sizes[size],
+      quantity: 1,
     };
-    console.log('My item',item)
+    console.log('My item', item);
     dispatch(setItem(item));
   };
   return (
