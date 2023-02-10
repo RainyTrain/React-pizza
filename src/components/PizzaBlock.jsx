@@ -15,7 +15,7 @@ function PizzaBlock(props) {
     const item = {
       title: props.title,
       price: props.price,
-      id: props.id,
+      id: Date.now(),
       imageUrl: props.imageUrl,
       type: pizzaType[type],
       size: props.sizes[size],
