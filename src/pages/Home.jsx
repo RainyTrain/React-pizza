@@ -41,7 +41,7 @@ function Home() {
       .then((response) => {
         setList(response.data);
         setIsLoading(false);
-        console.log(response.data)
+        console.log(response.data);
       })
       .catch((e) => console.log(e));
   }, [pizzaCategory, sortType, currentPage]);

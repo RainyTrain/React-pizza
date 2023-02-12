@@ -21,7 +21,6 @@ function PizzaBlock(props) {
       size: props.sizes[size],
       quantity: 1,
     };
-    console.log('My item', item);
     dispatch(setItem(item));
   };
   return (
