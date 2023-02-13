@@ -5,12 +5,11 @@ import PizzaBlock from '../components/PizzaBlock';
 import { useEffect, useState, useContext } from 'react';
 import MyLoader from '../components/Skeleton';
 import axios from 'axios';
-import qs from 'qs';
 import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId, setCurrentPage, setFilters, sorting } from '../Redux/Slices/FilterSlice';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { setCategoryId, setCurrentPage } from '../Redux/Slices/FilterSlice';
+import { useSearchParams } from 'react-router-dom';
 
 function Home() {
   const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
@@ -23,7 +22,6 @@ function Home() {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams({});
 
   const setPizzaCategory = (id) => {
