@@ -120,7 +120,6 @@ function Cart() {
                   stroke-linejoin="round"
                 />
               </svg>
-
               <span>Back</span>
             </Link>
             <button onClick={handleClick} class="button pay-btn">
