@@ -32,16 +32,18 @@ function Home() {
     setIsLoading(true);
     const sortBy = sortType ? `&sortBy=${sortType}&order` : '';
     const category = pizzaCategory ? `category=${pizzaCategory}` : '';
-    axios
-      .get(
-        `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&limit=4`,
-      )
-      .then((response) => {
+    const fetchPizza = async () => {
+      try {
+        const response = await axios.get(
+          `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&limit=4`,
+        );
         setList(response.data);
         setIsLoading(false);
-        console.log(response.data);
-      })
-      .catch((e) => console.log(e));
+      } catch (error) {
+        alert(error);
+      }
+    };
+    fetchPizza();
   }, [pizzaCategory, sortType, currentPage]);
 
   useEffect(() => {
