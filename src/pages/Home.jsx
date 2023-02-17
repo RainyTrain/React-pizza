@@ -2,25 +2,25 @@ import React, { useMemo } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import MyLoader from '../components/Skeleton';
-import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage } from '../Redux/Slices/FilterSlice';
 import { useSearchParams } from 'react-router-dom';
+import { fetchPizzas } from '../Redux/Slices/PizzaSlice';
 
 function Home() {
   const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
   const sortType = useSelector((state) => state.filterReducer.sortType);
   const currentPage = useSelector((state) => state.filterReducer.currentPage);
+  const getPizza = useSelector((state) => state.pizzaReducer.items);
+  const isLoading = useSelector((state) => state.pizzaReducer.isLoading);
 
   const dispatch = useDispatch();
 
   const { searchQuery } = useContext(myContext);
-  const [list, setList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const [searchParams, setSearchParams] = useSearchParams({});
 
@@ -29,21 +29,9 @@ function Home() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     const sortBy = sortType ? `&sortBy=${sortType}&order` : '';
     const category = pizzaCategory ? `category=${pizzaCategory}` : '';
-    const fetchPizza = async () => {
-      try {
-        const response = await axios.get(
-          `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&limit=4`,
-        );
-        setList(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        alert(error);
-      }
-    };
-    fetchPizza();
+    dispatch(fetchPizzas({ category, sortBy, currentPage }));
   }, [pizzaCategory, sortType, currentPage]);
 
   useEffect(() => {
@@ -56,11 +44,11 @@ function Home() {
 
   const pizzas = useMemo(() => {
     return searchQuery != ''
-      ? list.filter((pizza) => {
+      ? getPizza.filter((pizza) => {
           return pizza.title.toLowerCase().includes(searchQuery.toLowerCase());
         })
-      : list;
-  }, [list, searchQuery]);
+      : getPizza;
+  }, [getPizza, searchQuery]);
 
   return (
     <div className="container">
