@@ -10,10 +10,6 @@ function Cart() {
   const pizzaCart = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    console.log(pizzaCart);
-  };
-
   return (
     <div class="container container--cart">
       <div class="cart">
@@ -122,7 +118,7 @@ function Cart() {
               </svg>
               <span>Back</span>
             </Link>
-            <button onClick={handleClick} class="button pay-btn">
+            <button class="button pay-btn">
               <span>Pay now</span>
             </button>
           </div>
