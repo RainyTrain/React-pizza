@@ -2,10 +2,9 @@ import React, { useMemo } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import MyLoader from '../components/Skeleton';
 import ReactPaginate from 'react-paginate';
-import { myContext } from '../components/Context';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage } from '../Redux/Slices/FilterSlice';
 import { useSearchParams } from 'react-router-dom';
@@ -17,10 +16,9 @@ function Home() {
   const currentPage = useSelector((state) => state.filterReducer.currentPage);
   const getPizza = useSelector((state) => state.pizzaReducer.items);
   const isLoading = useSelector((state) => state.pizzaReducer.isLoading);
+  const searchQuery = useSelector((state) => state.filterReducer.searchQuery);
 
   const dispatch = useDispatch();
-
-  const { searchQuery } = useContext(myContext);
 
   const [searchParams, setSearchParams] = useSearchParams({});
 

@@ -1,18 +1,23 @@
 import logo from '../assets/pizza-logo.svg';
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { myContext } from './Context';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchQuery } from '../Redux/Slices/FilterSlice';
 
 function Header() {
   const totalPrice = useSelector((state) => state.cartReducer.totalPrice);
-  const { searchQuery, setSearchQuery } = useContext(myContext);
+  const searchQuery = useSelector((state) => state.filterReducer.searchQuery);
+  const dispatch = useDispatch();
   const [isClosed, setIsClosed] = useState(true);
   const ref = useRef();
 
+  const setSearch = (e) => {
+    dispatch(setSearchQuery(e));
+  };
+
   useEffect(() => {
-    setSearchQuery('');
+    setSearch('');
     ref.current.focus();
   }, [isClosed]);
 
@@ -33,7 +38,7 @@ function Header() {
             placeholder="Find pizza"
             ref={ref}
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}></input>
+            onChange={(e) => setSearch(e.target.value)}></input>
           {searchQuery ? (
             <div onClick={() => setIsClosed(!isClosed)} className="header__close">
               <AiOutlineClose />

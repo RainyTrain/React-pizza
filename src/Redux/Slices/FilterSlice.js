@@ -10,6 +10,7 @@ const initialState = {
   categoryId: 0,
   sortType: 'rating',
   currentPage: 1,
+  searchQuery: '',
 };
 
 export const filterSlice = createSlice({
@@ -30,8 +31,12 @@ export const filterSlice = createSlice({
       state.categoryId = Number(action.payload.pizzaCategory);
       state.currentPage = Number(action.payload.currentPage);
     },
+    setSearchQuery(state, action) {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions;
+export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchQuery } =
+  filterSlice.actions;
 export default filterSlice.reducer;
