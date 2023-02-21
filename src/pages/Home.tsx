@@ -5,24 +5,24 @@ import PizzaBlock from '../components/PizzaBlock';
 import { useEffect } from 'react';
 import MyLoader from '../components/Skeleton';
 import ReactPaginate from 'react-paginate';
-import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setCurrentPage } from '../Redux/Slices/FilterSlice';
 import { useSearchParams } from 'react-router-dom';
 import { fetchPizzas } from '../Redux/Slices/PizzaSlice';
+import { useAppDispatch, useTypedSelector } from '../Hooks';
 
 function Home() {
-  const pizzaCategory = useSelector((state) => state.filterReducer.categoryId);
-  const sortType = useSelector((state) => state.filterReducer.sortType);
-  const currentPage = useSelector((state) => state.filterReducer.currentPage);
-  const getPizza = useSelector((state) => state.pizzaReducer.items);
-  const isLoading = useSelector((state) => state.pizzaReducer.isLoading);
-  const searchQuery = useSelector((state) => state.filterReducer.searchQuery);
+  const pizzaCategory = useTypedSelector((state) => state.filterReducer.categoryId);
+  const sortType = useTypedSelector((state) => state.filterReducer.sortType);
+  const currentPage = useTypedSelector((state) => state.filterReducer.currentPage);
+  const getPizza = useTypedSelector((state) => state.pizzaReducer.items);
+  const isLoading = useTypedSelector((state) => state.pizzaReducer.isLoading);
+  const searchQuery = useTypedSelector((state) => state.filterReducer.searchQuery);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams({});
 
-  const setPizzaCategory = (id) => {
+  const setPizzaCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
@@ -32,13 +32,13 @@ function Home() {
     dispatch(fetchPizzas({ category, sortBy, currentPage }));
   }, [pizzaCategory, sortType, currentPage]);
 
-  useEffect(() => {
-    setSearchParams({
-      sortType,
-      pizzaCategory,
-      currentPage,
-    });
-  }, [pizzaCategory, sortType, currentPage]);
+  // useEffect(() => {
+  //   setSearchParams({
+  //     sortType,
+  //     pizzaCategory,
+  //     currentPage,
+  //   });
+  // }, [pizzaCategory, sortType, currentPage]);
 
   const pizzas = useMemo(() => {
     return searchQuery != ''
@@ -68,7 +68,7 @@ function Home() {
           pageRangeDisplayed={4}
           pageCount={3}
           previousLabel="<"
-          renderOnZeroPageCount={null}
+          //renderOnZeroPageCount={null}
         />
       </div>
     </div>

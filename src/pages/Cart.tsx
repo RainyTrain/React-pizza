@@ -1,20 +1,19 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
+import { useAppDispatch, useTypedSelector } from '../Hooks';
 import { clearCart } from '../Redux/Slices/CartSlice';
 
 function Cart() {
-  const count = useSelector((state) => state.cartReducer.count);
-  const price = useSelector((state) => state.cartReducer.totalPrice);
-  const pizzaCart = useSelector((state) => state.cartReducer);
-  const dispatch = useDispatch();
+  const count = useTypedSelector((state) => state.cartReducer.count);
+  const price = useTypedSelector((state) => state.cartReducer.totalPrice);
+  const pizzaCart = useTypedSelector((state) => state.cartReducer);
+  const dispatch = useAppDispatch();
 
   return (
-    <div class="container container--cart">
-      <div class="cart">
-        <div class="cart__top">
-          <h2 class="content__title">
+    <div className="container container--cart">
+      <div className="cart">
+        <div className="cart__top">
+          <h2 className="content__title">
             <svg
               width="18"
               height="18"
@@ -45,7 +44,7 @@ function Cart() {
             </svg>
             Cart
           </h2>
-          <div onClick={() => dispatch(clearCart())} class="cart__clear">
+          <div onClick={() => dispatch(clearCart())} className="cart__clear">
             <svg
               width="20"
               height="20"
@@ -84,13 +83,13 @@ function Cart() {
             <span>Empty cart</span>
           </div>
         </div>
-        <div class="cart__items">
+        <div className="cart__items">
           {pizzaCart.items.map((item) => {
             return <CartItem {...item} />;
           })}
         </div>
-        <div class="cart__bottom">
-          <div class="cart__bottom-details">
+        <div className="cart__bottom">
+          <div className="cart__bottom-details">
             <span>
               {' '}
               Pizzas amount: <b>{count}</b>{' '}
@@ -100,8 +99,8 @@ function Cart() {
               Price: <b>{price} $</b>{' '}
             </span>
           </div>
-          <div class="cart__bottom-buttons">
-            <Link to="/" class="button button--outline button--add go-back-btn">
+          <div className="cart__bottom-buttons">
+            <Link to="/" className="button button--outline button--add go-back-btn">
               <svg
                 width="8"
                 height="14"
@@ -118,7 +117,7 @@ function Cart() {
               </svg>
               <span>Back</span>
             </Link>
-            <button class="button pay-btn">
+            <button className="button pay-btn">
               <span>Pay now</span>
             </button>
           </div>

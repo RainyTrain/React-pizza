@@ -1,6 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface Pizza {
+  title: string;
+  type: number;
+  size: number;
+  price: number;
+  id: number;
+  imageUrl: string;
+  quantity: number;
+}
+
+interface Cart {
+  items: Pizza[];
+  totalPrice: number;
+  count: number;
+}
+
+const initialState: Cart = {
   items: [],
   totalPrice: 0,
   count: 0,
@@ -10,7 +26,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    setItem(state, action) {
+    setItem(state, action: PayloadAction<Pizza>) {
       const findPizza = state.items.find(
         (item) =>
           item.title == action.payload.title &&
@@ -31,7 +47,7 @@ export const cartSlice = createSlice({
       state.totalPrice += action.payload.price;
       state.count += 1;
     },
-    removeItem(state, action) {
+    removeItem(state, action: PayloadAction<number>) {
       const newCart = state.items.filter((item) => item.id != action.payload);
       state.items = newCart;
       state.count -= 1;
@@ -41,32 +57,35 @@ export const cartSlice = createSlice({
       state.totalPrice = initialState.totalPrice;
       state.count = initialState.count;
     },
-    plusItem(state, action) {
+    plusItem(state, action: PayloadAction<number>) {
       const findPizza = state.items.find((item) => item.id == action.payload);
-      const index = state.items.indexOf(findPizza);
-      state.items = [
-        ...state.items.slice(0, index),
-        { ...findPizza, quantity: findPizza.quantity + 1 },
-        ...state.items.slice(index + 1),
-      ];
-      state.totalPrice += findPizza.price;
-      state.count += 1;
-    },
-    minusItem(state, action) {
-      const findPizza = state.items.find((item) => item.id == action.payload);
-      const index = state.items.indexOf(findPizza);
-
-      if (findPizza.quantity > 1) {
+      if (findPizza) {
+        const index = state.items.indexOf(findPizza);
         state.items = [
           ...state.items.slice(0, index),
-          { ...findPizza, quantity: findPizza.quantity - 1 },
+          { ...findPizza, quantity: findPizza.quantity + 1 },
           ...state.items.slice(index + 1),
         ];
-      } else {
-        state.items = [...state.items.slice(0, index), ...state.items.slice(index + 1)];
+        state.totalPrice += findPizza.price;
+        state.count += 1;
       }
-      state.totalPrice -= findPizza.price;
-      state.count -= 1;
+    },
+    minusItem(state, action: PayloadAction<number>) {
+      const findPizza = state.items.find((item) => item.id == action.payload);
+      if (findPizza) {
+        const index = state.items.indexOf(findPizza);
+        if (findPizza.quantity > 1) {
+          state.items = [
+            ...state.items.slice(0, index),
+            { ...findPizza, quantity: findPizza.quantity - 1 },
+            ...state.items.slice(index + 1),
+          ];
+        } else {
+          state.items = [...state.items.slice(0, index), ...state.items.slice(index + 1)];
+        }
+        state.totalPrice -= findPizza.price;
+        state.count -= 1;
+      }
     },
   },
 });

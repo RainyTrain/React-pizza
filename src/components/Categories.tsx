@@ -1,4 +1,11 @@
-function Categories({ pizzaCategory, setPizzaCategory }) {
+import { FC } from "react";
+
+type CategoriesProps = {
+  pizzaCategory: number;
+  setPizzaCategory: (arg: number) => void;
+};
+
+const Categories: FC<CategoriesProps> = ({ pizzaCategory, setPizzaCategory }: CategoriesProps) => {
   const categories = ['All', 'Meat', 'Vege', 'Grill', 'Spicy', 'Calzone'];
   return (
     <div className="categories">
@@ -14,6 +21,6 @@ function Categories({ pizzaCategory, setPizzaCategory }) {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

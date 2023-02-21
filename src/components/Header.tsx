@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { setSearchQuery } from '../Redux/Slices/FilterSlice';
-import { useTypedSelector } from '../Hooks';
-import { useAppDispatch } from '../Redux/Store';
+import { useAppDispatch, useTypedSelector } from '../Hooks';
 
 function Header() {
   const totalPrice = useTypedSelector((state) => state.cartReducer.totalPrice);
@@ -41,8 +40,8 @@ function Header() {
             placeholder="Find pizza"
             ref={ref}
             value={searchQuery}
-            onChange={(e: React.FormEvent<HTMLInputElement>) =>
-              setSearch(e.currentTarget.value)
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value)
             }></input>
           {searchQuery ? (
             <div onClick={() => setIsClosed(!isClosed)} className="header__close">

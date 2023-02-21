@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useTypedSelector } from '../Hooks';
 import { setSort, sorting } from '../Redux/Slices/FilterSlice';
 
 function Sort() {
-  const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filterReducer.sortType);
-  const sortRef = useRef();
+  const dispatch = useAppDispatch();
+  const sort = useTypedSelector((state) => state.filterReducer.sortType);
+  const sortRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
-  const setSortingValue = (value) => {
+  const setSortingValue = (value: string) => {
     dispatch(setSort(value));
     setActive(false);
   };
 
   useEffect(() => {
-    const handleClick = (e) => {
-      if (!e.composedPath().includes(sortRef.current)) {
+    const handleClick = (e: MouseEvent) => {
+      if (sortRef.current && !e.composedPath().includes(sortRef.current)) {
         setActive(false);
       }
     };
