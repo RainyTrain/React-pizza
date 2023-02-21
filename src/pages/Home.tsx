@@ -64,10 +64,11 @@ function Home() {
         <ReactPaginate
           breakLabel="..."
           nextLabel=">"
-          onPageChange={(e) => dispatch(setCurrentPage(e.selected + 1))}
+          onPageChange={(arg) => dispatch(setCurrentPage(arg.selected + 1))}
           pageRangeDisplayed={4}
           pageCount={3}
           previousLabel="<"
+         
         />
       </div>
     </div>
