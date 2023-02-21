@@ -9,4 +9,4 @@ function NotFound() {
   );
 }
 
-export default NotFoundBlock;
+export default NotFound;

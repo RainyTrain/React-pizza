@@ -1,24 +1,27 @@
 import logo from '../assets/pizza-logo.svg';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
 import { setSearchQuery } from '../Redux/Slices/FilterSlice';
+import { useTypedSelector } from '../Hooks';
+import { useAppDispatch } from '../Redux/Store';
 
 function Header() {
-  const totalPrice = useSelector((state) => state.cartReducer.totalPrice);
-  const searchQuery = useSelector((state) => state.filterReducer.searchQuery);
-  const dispatch = useDispatch();
-  const [isClosed, setIsClosed] = useState(true);
-  const ref = useRef();
+  const totalPrice = useTypedSelector((state) => state.cartReducer.totalPrice);
+  const searchQuery = useTypedSelector((state) => state.filterReducer.searchQuery);
+  const dispatch = useAppDispatch();
+  const [isClosed, setIsClosed] = useState<boolean>(true);
+  const ref = useRef<HTMLInputElement>(null);
 
-  const setSearch = (e) => {
-    dispatch(setSearchQuery(e));
+  const setSearch = (arg: string) => {
+    dispatch(setSearchQuery(arg));
   };
 
   useEffect(() => {
     setSearch('');
-    ref.current.focus();
+    if (ref.current) {
+      ref.current.focus();
+    }
   }, [isClosed]);
 
   return (
@@ -38,7 +41,9 @@ function Header() {
             placeholder="Find pizza"
             ref={ref}
             value={searchQuery}
-            onChange={(e) => setSearch(e.target.value)}></input>
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              setSearch(e.currentTarget.value)
+            }></input>
           {searchQuery ? (
             <div onClick={() => setIsClosed(!isClosed)} className="header__close">
               <AiOutlineClose />
