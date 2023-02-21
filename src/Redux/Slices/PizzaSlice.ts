@@ -27,9 +27,9 @@ const initialState: InitialState = {
   isLoading: true,
 };
 
-export const fetchPizzas = createAsyncThunk('pizza/getPizza', async (params: FetchPizzasType) => {
+export const fetchPizzas = createAsyncThunk<PizzaSlice[],FetchPizzasType>('pizza/getPizza', async (params) => {
   const { category, sortBy, currentPage } = params;
-  const response = await axios.get(
+  const response = await axios.get<PizzaSlice[]>(
     `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&limit=4`,
   );
   return response.data;

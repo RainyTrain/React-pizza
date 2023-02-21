@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Pizza {
   title: string;
-  type: number;
+  type: string;
   size: number;
   price: number;
   id: number;

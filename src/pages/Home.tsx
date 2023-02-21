@@ -20,7 +20,7 @@ function Home() {
 
   const dispatch = useAppDispatch();
 
-  const [searchParams, setSearchParams] = useSearchParams({});
+  const [searchParams, setSearchParams]:[URLSearchParams, Function] = useSearchParams();
 
   const setPizzaCategory = (id: number) => {
     dispatch(setCategoryId(id));
@@ -32,13 +32,13 @@ function Home() {
     dispatch(fetchPizzas({ category, sortBy, currentPage }));
   }, [pizzaCategory, sortType, currentPage]);
 
-  // useEffect(() => {
-  //   setSearchParams({
-  //     sortType,
-  //     pizzaCategory,
-  //     currentPage,
-  //   });
-  // }, [pizzaCategory, sortType, currentPage]);
+  useEffect(() => {
+    setSearchParams({
+      sortType,
+      pizzaCategory,
+      currentPage,
+    });
+  }, [pizzaCategory, sortType, currentPage]);
 
   const pizzas = useMemo(() => {
     return searchQuery != ''
@@ -68,7 +68,6 @@ function Home() {
           pageRangeDisplayed={4}
           pageCount={3}
           previousLabel="<"
-          //renderOnZeroPageCount={null}
         />
       </div>
     </div>

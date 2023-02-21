@@ -1,13 +1,23 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC, useState } from 'react';
+import { useAppDispatch } from '../Hooks';
 import { setItem } from '../Redux/Slices/CartSlice';
 
-function PizzaBlock(props) {
-  const [count, setCount] = useState(0);
-  const [type, setType] = useState(0);
-  const [size, setSize] = useState(0);
+type PizzaBlockProps = {
+  title: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  id: number;
+  imageUrl: string;
+  quantity: number;
+};
 
-  const dispatch = useDispatch();
+const PizzaBlock: FC<PizzaBlockProps> = (props: PizzaBlockProps) => {
+  const [count, setCount] = useState<number>(0);
+  const [type, setType] = useState<number>(0);
+  const [size, setSize] = useState<number>(0);
+
+  const dispatch = useAppDispatch();
   const pizzaType = ['Thin', 'Traditional'];
 
   const addPizza = () => {
@@ -65,6 +75,6 @@ function PizzaBlock(props) {
       </div>
     </div>
   );
-}
+};
 
 export default PizzaBlock;
