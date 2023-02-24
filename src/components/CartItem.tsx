@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useAppDispatch } from '../Hooks';
 import { minusItem, plusItem, removeItem } from '../Redux/Slices/CartSlice';
 
-type CartItemProps = {
+type CartItemPropsType = {
   title: string;
   price: number;
   id: number;
@@ -12,7 +12,7 @@ type CartItemProps = {
   quantity: number;
 };
 
-const CartItem: FC<CartItemProps> = ({ title, price, id, imageUrl, type, size, quantity }:CartItemProps) => {
+const CartItem: FC<CartItemPropsType> = ({ title, price, id, imageUrl, type, size, quantity }) => {
   const dispatch = useAppDispatch();
 
   const removePizza = (id: number) => {

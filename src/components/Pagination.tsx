@@ -1,6 +1,5 @@
-import React from 'react';
-function ReactPaginate() {
+const ReactPaginate = () => {
   return <></>;
-}
+};
 
 export default ReactPaginate;

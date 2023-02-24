@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
@@ -20,7 +20,7 @@ function Home() {
 
   const dispatch = useAppDispatch();
 
-  const [searchParams, setSearchParams]:[URLSearchParams, Function] = useSearchParams();
+  const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
 
   const setPizzaCategory = (id: number) => {
     dispatch(setCategoryId(id));
@@ -68,7 +68,6 @@ function Home() {
           pageRangeDisplayed={4}
           pageCount={3}
           previousLabel="<"
-         
         />
       </div>
     </div>

@@ -5,11 +5,14 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { setSearchQuery } from '../Redux/Slices/FilterSlice';
 import { useAppDispatch, useTypedSelector } from '../Hooks';
 
-function Header() {
+const Header = () => {
   const totalPrice = useTypedSelector((state) => state.cartReducer.totalPrice);
   const searchQuery = useTypedSelector((state) => state.filterReducer.searchQuery);
+
   const dispatch = useAppDispatch();
+
   const [isClosed, setIsClosed] = useState<boolean>(true);
+
   const ref = useRef<HTMLInputElement>(null);
 
   const setSearch = (arg: string) => {
@@ -89,6 +92,6 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

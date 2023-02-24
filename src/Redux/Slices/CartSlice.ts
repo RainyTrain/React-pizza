@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Pizza {
+interface IPizza {
   title: string;
   type: string;
   size: number;
@@ -10,13 +10,13 @@ interface Pizza {
   quantity: number;
 }
 
-interface Cart {
-  items: Pizza[];
+interface ICart {
+  items: IPizza[];
   totalPrice: number;
   count: number;
 }
 
-const initialState: Cart = {
+const initialState: ICart = {
   items: [],
   totalPrice: 0,
   count: 0,
@@ -26,7 +26,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    setItem(state, action: PayloadAction<Pizza>) {
+    setItem(state, action: PayloadAction<IPizza>) {
       const findPizza = state.items.find(
         (item) =>
           item.title == action.payload.title &&
@@ -48,9 +48,13 @@ export const cartSlice = createSlice({
       state.count += 1;
     },
     removeItem(state, action: PayloadAction<number>) {
+      const findPizza = state.items.find((item) => item.id == action.payload);
       const newCart = state.items.filter((item) => item.id != action.payload);
       state.items = newCart;
-      state.count -= 1;
+      if (findPizza) {
+        state.totalPrice -= findPizza.price * findPizza.quantity;
+        state.count -= 1;
+      }
     },
     clearCart(state) {
       state.items = initialState.items;

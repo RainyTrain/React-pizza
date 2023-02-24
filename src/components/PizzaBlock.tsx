@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useAppDispatch } from '../Hooks';
 import { setItem } from '../Redux/Slices/CartSlice';
 
-type PizzaBlockProps = {
+type PizzaBlockPropsType = {
   title: string;
   types: number[];
   sizes: number[];
@@ -12,16 +12,17 @@ type PizzaBlockProps = {
   quantity: number;
 };
 
-const PizzaBlock: FC<PizzaBlockProps> = (props: PizzaBlockProps) => {
+const PizzaBlock: FC<PizzaBlockPropsType> = (props) => {
   const [count, setCount] = useState<number>(0);
   const [type, setType] = useState<number>(0);
   const [size, setSize] = useState<number>(0);
 
   const dispatch = useAppDispatch();
+  
   const pizzaType = ['Thin', 'Traditional'];
 
   const addPizza = () => {
-    setCount(count + 1);
+    setCount((prev) => prev + 1);
     const item = {
       title: props.title,
       price: props.price,

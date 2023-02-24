@@ -3,10 +3,11 @@ import CartItem from '../components/CartItem';
 import { useAppDispatch, useTypedSelector } from '../Hooks';
 import { clearCart } from '../Redux/Slices/CartSlice';
 
-function Cart() {
+const Cart = () => {
   const count = useTypedSelector((state) => state.cartReducer.count);
   const price = useTypedSelector((state) => state.cartReducer.totalPrice);
   const pizzaCart = useTypedSelector((state) => state.cartReducer);
+  
   const dispatch = useAppDispatch();
 
   return (
@@ -125,6 +126,6 @@ function Cart() {
       </div>
     </div>
   );
-}
+};
 
 export default Cart;

@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useTypedSelector } from '../Hooks';
 import { setSort, sorting } from '../Redux/Slices/FilterSlice';
 
-function Sort() {
-  const dispatch = useAppDispatch();
+const Sort = () => {
   const sort = useTypedSelector((state) => state.filterReducer.sortType);
-  const sortRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+
   const [active, setActive] = useState(false);
+  
+  const sortRef = useRef<HTMLDivElement>(null);
 
   const setSortingValue = (value: string) => {
     dispatch(setSort(value));
@@ -60,6 +62,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

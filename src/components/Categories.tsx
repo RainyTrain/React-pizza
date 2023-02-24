@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-type CategoriesProps = {
+type CategoriesPropsType = {
   pizzaCategory: number;
   setPizzaCategory: (arg: number) => void;
 };
 
-const Categories: FC<CategoriesProps> = ({ pizzaCategory, setPizzaCategory }: CategoriesProps) => {
+const Categories: FC<CategoriesPropsType> = ({ pizzaCategory, setPizzaCategory }) => {
   const categories = ['All', 'Meat', 'Vege', 'Grill', 'Spicy', 'Calzone'];
   return (
     <div className="categories">

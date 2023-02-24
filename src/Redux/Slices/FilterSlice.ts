@@ -6,14 +6,14 @@ export const sorting = [
   { name: 'Title', value: 'title' },
 ];
 
-interface Sorting {
+interface ISort {
   categoryId: number;
   sortType: string;
   currentPage: number;
   searchQuery: string;
 }
 
-const initialState: Sorting = {
+const initialState: ISort = {
   categoryId: 0,
   sortType: 'rating',
   currentPage: 1,
