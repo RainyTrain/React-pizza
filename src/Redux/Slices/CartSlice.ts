@@ -37,7 +37,6 @@ export const cartSlice = createSlice({
         state.items.push({ ...action.payload });
       } else {
         const index = state.items.indexOf(findPizza);
-        console.log('This item already exists with index', index);
         state.items = [
           ...state.items.slice(0, index),
           { ...findPizza, quantity: findPizza.quantity + 1 },

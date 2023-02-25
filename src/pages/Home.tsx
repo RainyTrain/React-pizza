@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
@@ -22,9 +22,9 @@ function Home() {
 
   const [searchParams, setSearchParams]: [URLSearchParams, Function] = useSearchParams();
 
-  const setPizzaCategory = (id: number) => {
+  const setPizzaCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   useEffect(() => {
     const sortBy = sortType ? `&sortBy=${sortType}&order` : '';
