@@ -7,7 +7,7 @@ const Cart = () => {
   const count = useTypedSelector((state) => state.cartReducer.count);
   const price = useTypedSelector((state) => state.cartReducer.totalPrice);
   const pizzaCart = useTypedSelector((state) => state.cartReducer);
-  
+
   const dispatch = useAppDispatch();
 
   return (

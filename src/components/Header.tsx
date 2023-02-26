@@ -8,12 +8,24 @@ import { useAppDispatch, useTypedSelector } from '../Hooks';
 const Header = () => {
   const totalPrice = useTypedSelector((state) => state.cartReducer.totalPrice);
   const searchQuery = useTypedSelector((state) => state.filterReducer.searchQuery);
+  const pizzaCart = useTypedSelector((state) => state.cartReducer.items);
 
   const dispatch = useAppDispatch();
 
   const [isClosed, setIsClosed] = useState<boolean>(true);
+  const [isRendered, setIsRendered] = useState<boolean>(false);
 
   const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    console.log('lolol')
+    if (isRendered) {
+      const json = JSON.stringify(pizzaCart);
+      window.localStorage.setItem('cart', json);
+      console.log('added');
+    }
+    setIsRendered(true);
+  }, [pizzaCart]);
 
   const setSearch = (arg: string) => {
     dispatch(setSearchQuery(arg));

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ParseFromLS } from '../../utils/ParseFromLS';
 
-interface IPizza {
+export interface IPizza {
   title: string;
   type: string;
   size: number;
@@ -10,16 +11,16 @@ interface IPizza {
   quantity: number;
 }
 
-interface ICart {
+export interface ICart {
   items: IPizza[];
   totalPrice: number;
   count: number;
 }
 
 const initialState: ICart = {
-  items: [],
-  totalPrice: 0,
-  count: 0,
+  items: ParseFromLS().items,
+  totalPrice: ParseFromLS().totalPrice,
+  count: ParseFromLS().count,
 };
 
 export const cartSlice = createSlice({
@@ -52,13 +53,13 @@ export const cartSlice = createSlice({
       state.items = newCart;
       if (findPizza) {
         state.totalPrice -= findPizza.price * findPizza.quantity;
-        state.count -= 1;
+        state.count -= findPizza.quantity;
       }
     },
     clearCart(state) {
-      state.items = initialState.items;
-      state.totalPrice = initialState.totalPrice;
-      state.count = initialState.count;
+      state.items = [];
+      state.totalPrice = 0;
+      state.count = 0;
     },
     plusItem(state, action: PayloadAction<number>) {
       const findPizza = state.items.find((item) => item.id == action.payload);
