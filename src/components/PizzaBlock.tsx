@@ -18,7 +18,7 @@ const PizzaBlock: FC<PizzaBlockPropsType> = (props) => {
   const [size, setSize] = useState<number>(0);
 
   const dispatch = useAppDispatch();
-  
+
   const pizzaType = ['Thin', 'Traditional'];
 
   const addPizza = () => {

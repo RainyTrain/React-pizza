@@ -7,7 +7,7 @@ const Sort = () => {
   const dispatch = useAppDispatch();
 
   const [active, setActive] = useState(false);
-  
+
   const sortRef = useRef<HTMLDivElement>(null);
 
   const setSortingValue = (value: string) => {

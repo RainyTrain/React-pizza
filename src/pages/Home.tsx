@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
@@ -27,10 +27,11 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    const sortBy = sortType ? `&sortBy=${sortType}&order` : '';
+    const sortBy = sortType ? `sortBy=${sortType}&order` : '';
     const category = pizzaCategory ? `category=${pizzaCategory}` : '';
-    dispatch(fetchPizzas({ category, sortBy, currentPage }));
-  }, [pizzaCategory, sortType, currentPage]);
+    const search = searchQuery ? `search=${searchQuery}` : '';
+    dispatch(fetchPizzas({ category, sortBy, search, currentPage }));
+  }, [pizzaCategory, sortType, searchQuery, currentPage]);
 
   useEffect(() => {
     setSearchParams({

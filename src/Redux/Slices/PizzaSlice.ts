@@ -19,6 +19,7 @@ interface InitialState {
 type FetchPizzasType = {
   category: string;
   sortBy: string;
+  search: string;
   currentPage: number;
 };
 
@@ -27,13 +28,16 @@ const initialState: InitialState = {
   isLoading: true,
 };
 
-export const fetchPizzas = createAsyncThunk<IPizzaSlice[], FetchPizzasType>('pizza/getPizza', async (params) => {
-  const { category, sortBy, currentPage } = params;
-  const response = await axios.get<IPizzaSlice[]>(
-    `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&limit=4`,
-  );
-  return response.data;
-});
+export const fetchPizzas = createAsyncThunk<IPizzaSlice[], FetchPizzasType>(
+  'pizza/getPizza',
+  async (params) => {
+    const { category, sortBy, search, currentPage } = params;
+    const response = await axios.get<IPizzaSlice[]>(
+      `https://639b4244d514150197507472.mockapi.io/pizzas?${category}&${sortBy}&page=${currentPage}&${search}&limit=4`,
+    );
+    return response.data;
+  },
+);
 
 export const pizzaSlice = createSlice({
   name: 'pizza',

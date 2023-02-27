@@ -18,11 +18,9 @@ const Header = () => {
   const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log('lolol')
     if (isRendered) {
       const json = JSON.stringify(pizzaCart);
       window.localStorage.setItem('cart', json);
-      console.log('added');
     }
     setIsRendered(true);
   }, [pizzaCart]);
