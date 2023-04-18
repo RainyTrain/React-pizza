@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## General info
+Responsive web application for ordering pizza. User can sort, filter and add selected pizzas to the cart.
+
+## Technologies
+Project is created with:
+* React.js
+* TypeScript
+* Redux Toolkit
+* Rest API
+
 ## Available Scripts
 
 In the project directory, you can run:
